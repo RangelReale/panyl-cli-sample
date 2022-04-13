@@ -77,6 +77,10 @@ func main() {
 				Enabled: false,
 			},
 			{
+				Name:    "nginxjsonlog",
+				Enabled: false,
+			},
+			{
 				Name:    "elasticsearchjson",
 				Enabled: false,
 			},
@@ -103,7 +107,7 @@ func main() {
 					pluginsEnabled = append(pluginsEnabled, "json")
 				} else if preset == "all" {
 					pluginsEnabled = append(pluginsEnabled, "json", "dockercompose",
-						"golog", "rubylog", "mongolog", "nginxerrorlog", "postgreslog", "redislog",
+						"golog", "rubylog", "mongolog", "nginxjsonlog", "nginxerrorlog", "postgreslog", "redislog",
 						"elasticsearchjson")
 				} else {
 					return nil, fmt.Errorf("unknown preset '%s'", preset)
@@ -136,6 +140,8 @@ func main() {
 					ret.RegisterPlugin(&parse.MongoLog{})
 				case "nginxerrorlog":
 					ret.RegisterPlugin(&parse.NGINXErrorLog{})
+				case "nginxjsonlog":
+					ret.RegisterPlugin(&parse.NGINXJsonLog{})
 				case "postgreslog":
 					ret.RegisterPlugin(&parse.PostgresLog{})
 				case "redislog":
