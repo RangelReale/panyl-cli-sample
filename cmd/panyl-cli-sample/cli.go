@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/RangelReale/panyl-plugins/postprocess"
 	"os"
 
 	"github.com/RangelReale/ecapplog-go"
@@ -29,6 +30,7 @@ func main() {
 			flags.StringP("output", "o", "console", "output (console, ansi, ecapplog)")
 			flags.String("ecappname", "", "set ecapplog app name (default = application flag)")
 			flags.Bool("debug-parse", false, "debug parsing")
+			flags.Bool("debug-format", false, "debug format")
 		}),
 		panylcli.WithPluginOptions([]panylcli.PluginOption{
 			{
@@ -62,6 +64,10 @@ func main() {
 				Enabled: false,
 			},
 			{
+				Name:    "postgreslog",
+				Enabled: false,
+			},
+			{
 				Name:    "nginxerrorlog",
 				Enabled: false,
 			},
@@ -74,6 +80,7 @@ func main() {
 				Output      string `flag:"output"`
 				ECAppName   string `flag:"ecappname"`
 				DebugParse  bool   `flag:"debug-parse"`
+				DebugFormat bool   `flag:"debug-format"`
 			}{}
 
 			err := panylcli.ParseFlags(flags, &parseflags)
@@ -87,7 +94,7 @@ func main() {
 					pluginsEnabled = append(pluginsEnabled, "json")
 				} else if preset == "all" {
 					pluginsEnabled = append(pluginsEnabled, "json", "dockercompose",
-						"golog", "rubylog", "mongolog", "nginxerrorlog")
+						"golog", "rubylog", "mongolog", "nginxerrorlog", "postgreslog")
 				} else {
 					return nil, fmt.Errorf("unknown preset '%s'", preset)
 				}
@@ -95,6 +102,10 @@ func main() {
 
 			if parseflags.Application != "" {
 				ret.RegisterPlugin(&metadata.ForceApplication{Application: parseflags.Application})
+			}
+
+			if parseflags.DebugFormat {
+				pluginsEnabled = append(pluginsEnabled, "debugformat")
 			}
 
 			for _, plugin := range panylcli.PluginsEnabledUnique(pluginsEnabled) {
@@ -115,6 +126,10 @@ func main() {
 					ret.RegisterPlugin(&parse.MongoLog{})
 				case "nginxerrorlog":
 					ret.RegisterPlugin(&parse.NGINXErrorLog{})
+				case "postgreslog":
+					ret.RegisterPlugin(&parse.PostgresLog{})
+				case "debugformat":
+					ret.RegisterPlugin(&postprocess.DebugFormat{})
 				}
 			}
 

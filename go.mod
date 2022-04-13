@@ -7,7 +7,7 @@ require (
 	github.com/RangelReale/panyl v0.6.5
 	github.com/RangelReale/panyl-cli v0.6.2
 	github.com/RangelReale/panyl-ecapplog v0.6.2
-	github.com/RangelReale/panyl-plugins v0.6.6
+	github.com/RangelReale/panyl-plugins v0.6.7
 	github.com/RangelReale/panyl-plugins-ansi v0.5.2
 	github.com/spf13/pflag v1.0.5
 )
