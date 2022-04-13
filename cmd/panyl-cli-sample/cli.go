@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/RangelReale/panyl-plugins/parseformat"
 	"github.com/RangelReale/panyl-plugins/postprocess"
 	"os"
 
@@ -68,7 +69,15 @@ func main() {
 				Enabled: false,
 			},
 			{
+				Name:    "redislog",
+				Enabled: false,
+			},
+			{
 				Name:    "nginxerrorlog",
+				Enabled: false,
+			},
+			{
+				Name:    "elasticsearchjson",
 				Enabled: false,
 			},
 		}),
@@ -94,7 +103,8 @@ func main() {
 					pluginsEnabled = append(pluginsEnabled, "json")
 				} else if preset == "all" {
 					pluginsEnabled = append(pluginsEnabled, "json", "dockercompose",
-						"golog", "rubylog", "mongolog", "nginxerrorlog", "postgreslog")
+						"golog", "rubylog", "mongolog", "nginxerrorlog", "postgreslog", "redislog",
+						"elasticsearchjson")
 				} else {
 					return nil, fmt.Errorf("unknown preset '%s'", preset)
 				}
@@ -128,6 +138,10 @@ func main() {
 					ret.RegisterPlugin(&parse.NGINXErrorLog{})
 				case "postgreslog":
 					ret.RegisterPlugin(&parse.PostgresLog{})
+				case "redislog":
+					ret.RegisterPlugin(&parse.RedisLog{})
+				case "elasticsearchjson":
+					ret.RegisterPlugin(&parseformat.ElasticSearchJSON{})
 				case "debugformat":
 					ret.RegisterPlugin(&postprocess.DebugFormat{})
 				}
