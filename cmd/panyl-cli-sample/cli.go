@@ -28,6 +28,7 @@ func main() {
 			flags.IntP("line-amount", "m", 0, "amount of lines to process (0 = all)")
 			flags.StringP("output", "o", "console", "output (console, ansi, ecapplog)")
 			flags.String("ecappname", "", "set ecapplog app name (default = application flag)")
+			flags.Bool("debug-parse", false, "debug parsing")
 		}),
 		panylcli.WithPluginOptions([]panylcli.PluginOption{
 			{
@@ -72,6 +73,7 @@ func main() {
 				LineAmount  int    `flag:"line-amount"`
 				Output      string `flag:"output"`
 				ECAppName   string `flag:"ecappname"`
+				DebugParse  bool   `flag:"debug-parse"`
 			}{}
 
 			err := panylcli.ParseFlags(flags, &parseflags)
@@ -126,6 +128,21 @@ func main() {
 				}
 				client = ecapplog.NewClient(ecapplog.WithAppName(parseflags.ECAppName))
 				client.Open()
+
+				ret.IncludeSource = true
+			}
+
+			if parseflags.DebugParse {
+				switch parseflags.Output {
+				case "console":
+					ret.Logger = panyl.NewStdLogOutput()
+				case "ansi":
+					ret.Logger = &output.AnsiLog{}
+				case "ecapplog":
+					ret.Logger = panylecapplog.NewLog(client,
+						panylecapplog.WithSourceCategory("panyl-debug-parse"),
+						panylecapplog.WithProcessCategory("panyl-debug-parse"))
+				}
 			}
 
 			return ret, nil
@@ -146,7 +163,10 @@ func main() {
 			case "ansi":
 				return output.NewAnsiOutput(true), nil
 			case "ecapplog":
-				return panylecapplog.NewOutput(client), nil
+				return panylecapplog.NewOutput(client,
+					panylecapplog.WithApplicationAsCategory(true),
+					panylecapplog.WithAppendCategoryToApplication(false),
+				), nil
 			}
 			return nil, fmt.Errorf("unknown output '%s'", parseflags.Output)
 		}),

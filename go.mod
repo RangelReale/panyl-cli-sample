@@ -1,6 +1,6 @@
 module github.com/RangelReale/panyl-cli-sample
 
-go 1.17
+go 1.18
 
 require (
 	github.com/RangelReale/ecapplog-go v0.8.10
