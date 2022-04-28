@@ -2,10 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/RangelReale/panyl-plugins/parseformat"
-	"github.com/RangelReale/panyl-plugins/postprocess"
-	"os"
-
 	"github.com/RangelReale/ecapplog-go"
 	"github.com/RangelReale/panyl"
 	panylcli "github.com/RangelReale/panyl-cli"
@@ -13,11 +9,14 @@ import (
 	"github.com/RangelReale/panyl-plugins-ansi/output"
 	metadataPlugins "github.com/RangelReale/panyl-plugins/metadata"
 	"github.com/RangelReale/panyl-plugins/parse"
+	"github.com/RangelReale/panyl-plugins/parseformat"
+	"github.com/RangelReale/panyl-plugins/postprocess"
 	"github.com/RangelReale/panyl/plugins/clean"
 	"github.com/RangelReale/panyl/plugins/consolidate"
 	"github.com/RangelReale/panyl/plugins/metadata"
 	"github.com/RangelReale/panyl/plugins/structure"
 	"github.com/spf13/pflag"
+	"os"
 )
 
 func main() {
@@ -207,9 +206,9 @@ func main() {
 		}),
 	)
 
-	err := cmd.Execute()
+	exitCode, err := cmd.Execute()
 	if err != nil {
 		_, _ = fmt.Fprintln(os.Stderr, err.Error())
-		os.Exit(1)
 	}
+	os.Exit(exitCode)
 }

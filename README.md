@@ -30,6 +30,16 @@ cmd 2>&1 >/dev/null | panyl-cli-sample preset all --output=ansi -
 cmd 2>&1 >/dev/null | panyl-cli-sample preset all --output=ecapplog --ecappname=cmd -
 ```
 
+### Executing external command
+
+```shell
+panyl-cli-sample preset all --output=ansi -- echo "process this line"
+```
+
+```shell
+panyl-cli-sample preset all --output=ecapplog --ecappname=cmd -- echo "process this line"
+```
+
 ### Author
 
 Rangel Reale (rangelreale@gmail.com)

@@ -2,8 +2,8 @@ github.com/RangelReale/ecapplog-go v0.8.10 h1:F8Ma1xiQYHdNjB9d2lyay/nVOZTzf+Y04g
 github.com/RangelReale/ecapplog-go v0.8.10/go.mod h1:3C3kZZqgG39ZoF91jRG8YUFyC3TTH+YV4l0Tbja8AXk=
 github.com/RangelReale/panyl v0.6.7 h1:nNKBpwYB5nKhe28Pw3xgohXNbXPYjTt3l/yqfpU2/xE=
 github.com/RangelReale/panyl v0.6.7/go.mod h1:Aq9XC4mscRfgHVMMXngEqkUjVZayqrBHfgWMBWdzr5c=
-github.com/RangelReale/panyl-cli v0.6.2 h1:zzRwXf0PgKb7MK6fIyJTsDoqNHWoLurHiPNxgbFZ60A=
-github.com/RangelReale/panyl-cli v0.6.2/go.mod h1:34kedO41JPastvAZbgnUN1t2/D24L52j4ipQtySyT2g=
+github.com/RangelReale/panyl-cli v0.6.4 h1:3J50ahSCd+DnCBI0nzg058Gc24InJJhAsW0YqVXnu9s=
+github.com/RangelReale/panyl-cli v0.6.4/go.mod h1:pvi1QKO5XKCrfJZm7ykBGiDbP1rZ+8VtaU4v1e7h7os=
 github.com/RangelReale/panyl-ecapplog v0.6.2 h1:Yj0tQXUOyLC587gDdimJuPVwPX7lHAbh3gVAVCpyTmM=
 github.com/RangelReale/panyl-ecapplog v0.6.2/go.mod h1:nHw3VvwhxWhFGwfSFJ9TccbsuYNfvQojfJOm4XGBkUQ=
 github.com/RangelReale/panyl-plugins v0.6.8 h1:qWOeIgXYyI9iXflAKzpiZG1b0uj/Ou7wPN61tYpmDdA=
