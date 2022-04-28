@@ -5,7 +5,7 @@ Complete sample for [panyl-cli](https://github.com/RangelReale/panyl-cli).
 ## Install
 
 ```shell
-go install github.com/RangelReale/panyl-cli-sample/cmd/panyl-cli-sample
+go install github.com/RangelReale/panyl-cli-sample/cmd/panyl-cli-sample@latest
 ```
 
 ## Usage
