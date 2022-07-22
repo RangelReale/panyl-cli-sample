@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/RangelReale/ecapplog-go"
 	"github.com/RangelReale/panyl"
 	panylcli "github.com/RangelReale/panyl-cli"
@@ -16,7 +18,6 @@ import (
 	"github.com/RangelReale/panyl/plugins/metadata"
 	"github.com/RangelReale/panyl/plugins/structure"
 	"github.com/spf13/pflag"
-	"os"
 )
 
 func main() {
@@ -29,6 +30,7 @@ func main() {
 			flags.IntP("line-amount", "m", 0, "amount of lines to process (0 = all)")
 			flags.StringP("output", "o", "console", "output (console, ansi, ecapplog)")
 			flags.String("ecappname", "", "set ecapplog app name (default = application flag)")
+			flags.StringP("ecappaddress", "", "127.0.0.1:13991", "set ecapplog address")
 			flags.Bool("debug-parse", false, "debug parsing")
 			flags.Bool("debug-format", false, "debug format")
 		}),
@@ -86,13 +88,14 @@ func main() {
 		}),
 		panylcli.WithProcessorProvider(func(preset string, pluginsEnabled []string, flags *pflag.FlagSet) (*panyl.Processor, error) {
 			parseflags := struct {
-				Application string `flag:"application"`
-				StartLine   int    `flag:"start-line"`
-				LineAmount  int    `flag:"line-amount"`
-				Output      string `flag:"output"`
-				ECAppName   string `flag:"ecappname"`
-				DebugParse  bool   `flag:"debug-parse"`
-				DebugFormat bool   `flag:"debug-format"`
+				Application  string `flag:"application"`
+				StartLine    int    `flag:"start-line"`
+				LineAmount   int    `flag:"line-amount"`
+				Output       string `flag:"output"`
+				ECAppName    string `flag:"ecappname"`
+				ECAppAddress string `flag:"ecappaddress"`
+				DebugParse   bool   `flag:"debug-parse"`
+				DebugFormat  bool   `flag:"debug-format"`
 			}{}
 
 			err := panylcli.ParseFlags(flags, &parseflags)
@@ -160,7 +163,8 @@ func main() {
 				if ecname == "" {
 					ecname = "panyl-cli-sample"
 				}
-				client = ecapplog.NewClient(ecapplog.WithAppName(parseflags.ECAppName))
+				client = ecapplog.NewClient(ecapplog.WithAppName(parseflags.ECAppName),
+					ecapplog.WithAddress(parseflags.ECAppAddress))
 				client.Open()
 
 				ret.IncludeSource = true
