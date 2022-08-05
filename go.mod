@@ -4,8 +4,8 @@ go 1.18
 
 require (
 	github.com/RangelReale/ecapplog-go v0.8.10
-	github.com/RangelReale/panyl v0.6.7
-	github.com/RangelReale/panyl-cli v0.6.4
+	github.com/RangelReale/panyl v0.6.8
+	github.com/RangelReale/panyl-cli v0.6.6
 	github.com/RangelReale/panyl-ecapplog v0.6.2
 	github.com/RangelReale/panyl-plugins v0.6.8
 	github.com/RangelReale/panyl-plugins-ansi v0.5.2

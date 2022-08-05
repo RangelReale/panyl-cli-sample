@@ -86,7 +86,7 @@ func main() {
 				Enabled: false,
 			},
 		}),
-		panylcli.WithProcessorProvider(func(preset string, pluginsEnabled []string, flags *pflag.FlagSet) (*panyl.Processor, error) {
+		panylcli.WithProcessorProvider(func(preset string, pluginsEnabled []string, flags *pflag.FlagSet) (*panyl.Processor, []panyl.JobOption, error) {
 			parseflags := struct {
 				Application  string `flag:"application"`
 				StartLine    int    `flag:"start-line"`
@@ -100,10 +100,14 @@ func main() {
 
 			err := panylcli.ParseFlags(flags, &parseflags)
 			if err != nil {
-				return nil, err
+				return nil, nil, err
 			}
 
-			ret := panyl.NewProcessor(panyl.WithLineLimit(parseflags.StartLine, parseflags.LineAmount))
+			jopt := []panyl.JobOption{
+				panyl.WithLineLimit(parseflags.StartLine, parseflags.LineAmount),
+			}
+
+			ret := panyl.NewProcessor()
 			if preset != "" {
 				if preset == "default" {
 					pluginsEnabled = append(pluginsEnabled, "json")
@@ -112,7 +116,7 @@ func main() {
 						"golog", "rubylog", "mongolog", "nginxjsonlog", "nginxerrorlog", "postgreslog", "redislog",
 						"elasticsearchjson")
 				} else {
-					return nil, fmt.Errorf("unknown preset '%s'", preset)
+					return nil, nil, fmt.Errorf("unknown preset '%s'", preset)
 				}
 			}
 
@@ -167,7 +171,7 @@ func main() {
 					ecapplog.WithAddress(parseflags.ECAppAddress))
 				client.Open()
 
-				ret.IncludeSource = true
+				jopt = append(jopt, panyl.WithIncludeSource(true))
 			}
 
 			if parseflags.DebugParse {
@@ -183,7 +187,7 @@ func main() {
 				}
 			}
 
-			return ret, nil
+			return ret, jopt, nil
 		}),
 		panylcli.WithResultProvider(func(flags *pflag.FlagSet) (panyl.ProcessResult, error) {
 			parseflags := struct {
