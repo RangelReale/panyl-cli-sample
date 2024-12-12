@@ -110,7 +110,7 @@ func main() {
 			ret := panyl.NewProcessor()
 			if preset != "" {
 				if preset == "default" {
-					pluginsEnabled = append(pluginsEnabled, "json")
+					pluginsEnabled = append(pluginsEnabled, "json", "detectjson")
 				} else if preset == "all" {
 					pluginsEnabled = append(pluginsEnabled, "json", "dockercompose",
 						"golog", "rubylog", "mongolog", "nginxjsonlog", "nginxerrorlog", "postgreslog", "redislog",
@@ -134,6 +134,8 @@ func main() {
 					ret.RegisterPlugin(&clean.AnsiEscape{})
 				case "json":
 					ret.RegisterPlugin(&structure.JSON{})
+				case "detectjson":
+					ret.RegisterPlugin(&parseformat.DetectJSON{})
 				case "consolidate-lines":
 					ret.RegisterPlugin(&consolidate.JoinAllLines{})
 				case "dockercompose":
