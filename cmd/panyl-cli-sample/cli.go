@@ -138,7 +138,7 @@ func main() {
 				case "json":
 					ret.RegisterPlugin(&structure.JSON{})
 				case "detectjson":
-					ret.RegisterPlugin(&parseformat.DetectJSON{})
+					ret.RegisterPlugin(&postprocess.DetectJSON{})
 				case "consolidate-lines":
 					ret.RegisterPlugin(&consolidate.JoinAllLines{})
 				case "dockercompose":
