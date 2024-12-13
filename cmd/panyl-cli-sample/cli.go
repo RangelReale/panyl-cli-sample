@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log/slog"
 	"os"
 
 	"github.com/RangelReale/ecapplog-go"
@@ -176,6 +177,7 @@ func main() {
 				client.Open()
 
 				jopt = append(jopt, panyl.WithIncludeSource(true))
+				ret.SetAppLogger(slog.New(ecapplog.NewSLogHandler(client)))
 			}
 
 			if parseflags.DebugParse {
