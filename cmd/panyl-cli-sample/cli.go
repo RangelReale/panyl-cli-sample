@@ -173,7 +173,8 @@ func main() {
 					ecname = "panyl-cli-sample"
 				}
 				client = ecapplog.NewClient(ecapplog.WithAppName(parseflags.ECAppName),
-					ecapplog.WithAddress(parseflags.ECAppAddress))
+					ecapplog.WithAddress(parseflags.ECAppAddress),
+					ecapplog.WithFlushOnClose(true))
 				client.Open()
 
 				jopt = append(jopt, panyl.WithIncludeSource(true))
