@@ -107,7 +107,9 @@ func main() {
 				panyl.WithLineLimit(parseflags.StartLine, parseflags.LineAmount),
 			}
 
-			ret := panyl.NewProcessor()
+			ret := panyl.NewProcessor(
+				panyl.WithOnJobFinished(panylcli.ExecProcessFinished),
+			)
 			if preset != "" {
 				if preset == "default" {
 					pluginsEnabled = append(pluginsEnabled, "json", "detectjson")
