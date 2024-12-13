@@ -172,7 +172,7 @@ func main() {
 				if ecname == "" {
 					ecname = "panyl-cli-sample"
 				}
-				client = ecapplog.NewClient(ecapplog.WithAppName(parseflags.ECAppName),
+				client = ecapplog.NewClient(ecapplog.WithAppName(ecname),
 					ecapplog.WithAddress(parseflags.ECAppAddress),
 					ecapplog.WithFlushOnClose(true))
 				client.Open()
