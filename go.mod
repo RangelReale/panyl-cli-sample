@@ -1,14 +1,14 @@
-module github.com/RangelReale/panyl-cli-sample
+module github.com/RangelReale/panyl-cli-sample/v2
 
 go 1.23
 
 require (
 	github.com/RangelReale/ecapplog-go v0.9.0
-	github.com/RangelReale/panyl v0.9.2
-	github.com/RangelReale/panyl-cli v0.9.1
-	github.com/RangelReale/panyl-ecapplog v0.9.1
-	github.com/RangelReale/panyl-plugins v0.9.2
-	github.com/RangelReale/panyl-plugins-ansi v0.9.1
+	github.com/RangelReale/panyl-cli/v2 v2.0.0
+	github.com/RangelReale/panyl-ecapplog/v2 v2.0.0
+	github.com/RangelReale/panyl-plugins-ansi/v2 v2.0.0
+	github.com/RangelReale/panyl-plugins/v2 v2.0.0
+	github.com/RangelReale/panyl/v2 v2.0.0
 	github.com/spf13/pflag v1.0.5
 )
 
