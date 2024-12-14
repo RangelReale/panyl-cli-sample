@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log/slog"
 	"os"
@@ -87,7 +88,8 @@ func main() {
 				Enabled: false,
 			},
 		}),
-		panylcli.WithProcessorProvider(func(preset string, pluginsEnabled []string, flags *pflag.FlagSet) (*panyl.Processor, []panyl.JobOption, error) {
+		panylcli.WithProcessorProvider(func(ctx context.Context, preset string, pluginsEnabled []string,
+			flags *pflag.FlagSet) (context.Context, *panyl.Processor, []panyl.JobOption, error) {
 			parseflags := struct {
 				Application  string `flag:"application"`
 				StartLine    int    `flag:"start-line"`
@@ -101,7 +103,7 @@ func main() {
 
 			err := panylcli.ParseFlags(flags, &parseflags)
 			if err != nil {
-				return nil, nil, err
+				return ctx, nil, nil, err
 			}
 
 			jopt := []panyl.JobOption{
@@ -119,7 +121,7 @@ func main() {
 						"golog", "rubylog", "mongolog", "nginxjsonlog", "nginxerrorlog", "postgreslog", "redislog",
 						"elasticsearchjson")
 				} else {
-					return nil, nil, fmt.Errorf("unknown preset '%s'", preset)
+					return ctx, nil, nil, fmt.Errorf("unknown preset '%s'", preset)
 				}
 			}
 
@@ -178,7 +180,7 @@ func main() {
 				client.Open()
 
 				jopt = append(jopt, panyl.WithIncludeSource(true))
-				ret.SetAppLogger(slog.New(ecapplog.NewSLogHandler(client)))
+				ctx = panylcli.SLogCLIToContext(ctx, slog.New(ecapplog.NewSLogHandler(client)))
 			}
 
 			if parseflags.DebugParse {
@@ -194,9 +196,9 @@ func main() {
 				}
 			}
 
-			return ret, jopt, nil
+			return ctx, ret, jopt, nil
 		}),
-		panylcli.WithResultProvider(func(flags *pflag.FlagSet) (panyl.ProcessResult, error) {
+		panylcli.WithResultProvider(func(ctx context.Context, flags *pflag.FlagSet) (panyl.ProcessResult, error) {
 			parseflags := struct {
 				Output string `flag:"output"`
 			}{}
