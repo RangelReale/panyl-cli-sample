@@ -186,11 +186,11 @@ func main() {
 			if parseflags.DebugParse {
 				switch parseflags.Output {
 				case "console":
-					ret.Logger = panyl.NewStdLogOutput()
+					ret.DebugLog = panyl.NewStdDebugLogOutput()
 				case "ansi":
-					ret.Logger = &output.AnsiLog{}
+					ret.DebugLog = &output.AnsiLog{}
 				case "ecapplog":
-					ret.Logger = panylecapplog.NewLog(client,
+					ret.DebugLog = panylecapplog.NewLog(client,
 						panylecapplog.WithSourceCategory("panyl-debug-parse"),
 						panylecapplog.WithProcessCategory("panyl-debug-parse"))
 				}
