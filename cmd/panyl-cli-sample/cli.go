@@ -136,33 +136,33 @@ func main() {
 			for _, plugin := range panylcli.PluginsEnabledUnique(pluginsEnabled) {
 				switch plugin {
 				case "ansiescape":
-					ret.RegisterPlugin(&clean.AnsiEscape{})
+					ret.RegisterPlugin(clean.AnsiEscape{})
 				case "json":
-					ret.RegisterPlugin(&structure.JSON{})
+					ret.RegisterPlugin(structure.JSON{})
 				case "detectjson":
-					ret.RegisterPlugin(&postprocess.DetectJSON{})
+					ret.RegisterPlugin(postprocess.DetectJSON{})
 				case "consolidate-lines":
-					ret.RegisterPlugin(&consolidate.JoinAllLines{})
+					ret.RegisterPlugin(consolidate.JoinAllLines{})
 				case "dockercompose":
-					ret.RegisterPlugin(&metadataPlugins.DockerCompose{})
+					ret.RegisterPlugin(metadataPlugins.DockerCompose{})
 				case "golog":
-					ret.RegisterPlugin(&parse.GoLog{})
+					ret.RegisterPlugin(parse.GoLog{})
 				case "rubylog":
-					ret.RegisterPlugin(&parse.RubyLog{})
+					ret.RegisterPlugin(parse.RubyLog{})
 				case "mongolog":
-					ret.RegisterPlugin(&parse.MongoLog{})
+					ret.RegisterPlugin(parse.MongoLog{})
 				case "nginxerrorlog":
-					ret.RegisterPlugin(&parse.NGINXErrorLog{})
+					ret.RegisterPlugin(parse.NGINXErrorLog{})
 				case "nginxjsonlog":
-					ret.RegisterPlugin(&parse.NGINXJsonLog{})
+					ret.RegisterPlugin(parse.NGINXJsonLog{})
 				case "postgreslog":
-					ret.RegisterPlugin(&parse.PostgresLog{})
+					ret.RegisterPlugin(parse.PostgresLog{})
 				case "redislog":
-					ret.RegisterPlugin(&parse.RedisLog{})
+					ret.RegisterPlugin(parse.RedisLog{})
 				case "elasticsearchjson":
-					ret.RegisterPlugin(&parseformat.ElasticSearchJSON{})
+					ret.RegisterPlugin(parseformat.ElasticSearchJSON{})
 				case "debugformat":
-					ret.RegisterPlugin(&postprocess.DebugFormat{})
+					ret.RegisterPlugin(postprocess.DebugFormat{})
 				}
 			}
 
@@ -188,7 +188,7 @@ func main() {
 				case "console":
 					ret.DebugLog = panyl.NewStdDebugLogOutput()
 				case "ansi":
-					ret.DebugLog = &output.AnsiLog{}
+					ret.DebugLog = output.AnsiLog{}
 				case "ecapplog":
 					ret.DebugLog = panylecapplog.NewLog(client,
 						panylecapplog.WithSourceCategory("panyl-debug-parse"),
