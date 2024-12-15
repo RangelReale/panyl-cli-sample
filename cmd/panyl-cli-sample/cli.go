@@ -126,7 +126,7 @@ func main() {
 			}
 
 			if parseflags.Application != "" {
-				ret.RegisterPlugin(&metadata.ForceApplication{Application: parseflags.Application})
+				ret.RegisterPlugin(metadata.ForceApplication{Application: parseflags.Application})
 			}
 
 			if parseflags.DebugFormat {
