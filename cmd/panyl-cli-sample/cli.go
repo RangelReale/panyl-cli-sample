@@ -198,7 +198,7 @@ func main() {
 
 			return ctx, ret, jopt, nil
 		}),
-		panylcli.WithResultProvider(func(ctx context.Context, flags *pflag.FlagSet) (panyl.ProcessResult, error) {
+		panylcli.WithResultProvider(func(ctx context.Context, flags *pflag.FlagSet) (panyl.Output, error) {
 			parseflags := struct {
 				Output string `flag:"output"`
 			}{}
