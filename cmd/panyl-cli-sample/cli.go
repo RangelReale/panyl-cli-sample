@@ -210,7 +210,7 @@ func main() {
 
 			switch parseflags.Output {
 			case "console":
-				return panylcli.NewOutput(), nil
+				return panylcli.NewDefaultOutput(), nil
 			case "ansi":
 				return output.NewAnsiOutput(true), nil
 			case "ecapplog":
