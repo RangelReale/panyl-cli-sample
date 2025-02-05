@@ -4,11 +4,11 @@ go 1.23
 
 require (
 	github.com/RangelReale/ecapplog-go v1.0.0
-	github.com/RangelReale/panyl-cli/v2 v2.1.0
+	github.com/RangelReale/panyl-cli/v2 v2.1.1
 	github.com/RangelReale/panyl-ecapplog/v2 v2.1.1
 	github.com/RangelReale/panyl-plugins-ansi/v2 v2.1.0
-	github.com/RangelReale/panyl-plugins/v2 v2.1.0
-	github.com/RangelReale/panyl/v2 v2.1.2
+	github.com/RangelReale/panyl-plugins/v2 v2.1.4
+	github.com/RangelReale/panyl/v2 v2.1.3
 	github.com/spf13/pflag v1.0.5
 )
 
