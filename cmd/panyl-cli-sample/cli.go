@@ -14,6 +14,7 @@ import (
 	"github.com/RangelReale/panyl-plugins/v2/parse"
 	"github.com/RangelReale/panyl-plugins/v2/parseformat"
 	"github.com/RangelReale/panyl-plugins/v2/postprocess"
+	"github.com/RangelReale/panyl-plugins/v2/sequence"
 	"github.com/RangelReale/panyl/v2"
 	"github.com/RangelReale/panyl/v2/plugins/clean"
 	"github.com/RangelReale/panyl/v2/plugins/consolidate"
@@ -116,6 +117,8 @@ func main() {
 			if preset != "" {
 				if preset == "default" {
 					pluginsEnabled = append(pluginsEnabled, "json", "detectjson")
+				} else if preset == "line" {
+					pluginsEnabled = append(pluginsEnabled, "rawline")
 				} else if preset == "all" {
 					pluginsEnabled = append(pluginsEnabled, "json", "dockercompose",
 						"golog", "rubylog", "mongolog", "nginxjsonlog", "nginxerrorlog", "postgreslog", "redislog",
@@ -135,6 +138,8 @@ func main() {
 
 			for _, plugin := range panylcli.PluginsEnabledUnique(pluginsEnabled) {
 				switch plugin {
+				case "rawline":
+					ret.RegisterPlugin(sequence.RawLine{})
 				case "ansiescape":
 					ret.RegisterPlugin(clean.AnsiEscape{})
 				case "json":
